@@ -7,6 +7,8 @@ console.log('its working');
 /* Task 1: Investigate the data above. Practice accessing 
 data by console.log-ing the following pieces of data 
 
+
+
 (a) Home Team name for 2014 world cup final
 (b) Away Team name for 2014 world cup final
 (c) Home Team goals for 2014 world cup final
@@ -23,31 +25,19 @@ console.log ()
 console.log ()
 
 
-// function getData (array,)
 
 
 
+/* Task 2: Create a function called  getFinals that takes `data` 
+as an argument and returns an array of objects with only finals data */
 
+function getFinals(dataArray) {
 
-// const sampleArray = [1,2,3,4,5]
-
-
-
-// console.log (sampleArray[0]);
-// console.log (sampleArray.length)
-
-
-
-
-
-
-/* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
-
-function getFinals(/* code here */) {
-
-    /* code here */
-
+return dataArray.filter(function(item){
+    return item.Stage === 'Final';
+    })
 };
+console.log(getFinals(fifaData))
 
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
