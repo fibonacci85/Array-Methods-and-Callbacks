@@ -16,17 +16,38 @@ data by console.log-ing the following pieces of data
 (e) Winner of 2014 world cup final */
 
 
-//(a) get Home Team Name for YEAR of Array
+/// First we want to isolate 2014 games 
 
-// const getNames = fifaData.forEach(function(item1,item2){
-//     return 
-// });
+function get2014games (dataArray) {
+    return dataArray.filter(function(item){
+    return item['Year'] === 2014;
+    });
+}
 
-console.log ()
-console.log ()
-console.log ()
-console.log ()
-console.log ()
+console.log (get2014games(fifaData));
+
+// Second we need to isolate FINAL game 
+
+function getFinal (dataArray) {
+    return dataArray.filter(function(item){
+    return item['Stage'] === "Final";
+     });
+}
+
+console.log (getFinal(get2014games(fifaData)));
+
+const finalGame = getFinal(get2014games(fifaData));
+
+let winner = ''
+if (finalGame[0]["Home Team Goals"] > finalGame[0]["Away Team Goals"]){winner = finalGame[0]["Home Team Name"]} 
+else {winner = finalGame[0]["Away Team Name"]};
+
+
+console.log (finalGame[0]["Home Team Name"])
+console.log (finalGame[0]["Away Team Name"])
+console.log (finalGame[0]["Home Team Goals"])
+console.log (finalGame[0]["Away Team Goals"])
+console.log (winner)
 
 
 /* Task 2: Create a function called  getFinals that takes `data` 
@@ -38,6 +59,7 @@ return dataArray.filter(function(item){
     return item.Stage === 'Final';
     })
 };
+console.log("this is task 2")
 console.log(getFinals(fifaData))
 
 
@@ -46,32 +68,36 @@ console.log(getFinals(fifaData))
 
 function getYears(dataArray) {
 
-    return dataArray(fifaData).map(function(item){
+    return dataArray.map(function(item){
         return item.Year;
         })
 };
 
-console.log(getYears(getFinals));
+console.log ("this is task 3")
+console.log(getYears(getFinals(fifaData)));
+
+
+console.log ("there is no task 4")
+
 
 
 /* Task 5: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-// function getWinners(callback) {
-//     const finals = getFinals(fifaData)
+function getWinners(callback) {
+    const finals = getFinals(fifaData)
 
-//     return getFinals(fifaData).map(function(item){
-//         if item.['Home Team Name'] > item['Away Team Name']{
+    return getFinals(fifaData).map(function(item){
+        if (item['Home Team Goals'] > item['Away Team Goals']){
 
-//         }
-//         return item['Home Team Name'];
-//         else {
-//             return item['Away Team Name'];
-//         }
-//         })
+        return item['Home Team Name'];}
+        else {
+            return item['Away Team Name'];
+        }
+        })
+};
 
-// };
-
-// console.log (getWinners(getFinals));  /// if "Home Team Goals" > "Away Team Goals" return ...
+console.log (getWinners(getFinals)); 
+console.log ("^^^^this is task 5 ^^^^")
 
 
 
@@ -82,31 +108,56 @@ Parameters:
  * callback function getYears
  */
 
-function getWinnersByYear(array, cb1, cb2) {
-const winners = getWinners(array, cb1);
-const years = getYears(array, cb2);
-return winners.map (`In ${year}, ${country} won the world cup! `)
+function getWinnersByYear(winners, years) {
+return winners.map (function(country,index){
+return (`In ${years[index]}, ${country} won the world cup! `)
+})
 };
 
-console.log(getWinnersByYear(fifaData,getWinners,getYears));
+console.log(getWinnersByYear(getWinners(fifaData),getYears(fifaData)));
 
-
+console.log (" ^^^^this is task 6 ^^^^^")
 
 
 /* Task 7: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
+//1. write function called getAverageGoals that accepts one parameter "data"
+//2. Return average number of Home Team Goals && Away Goals 
+//.3 hint use .reduce and do it in 2 steps ... 
+    // .reduce ()
+    // first parameter is 'accumulator' / required
+    // second parameter is "item" (initial value)
+    // third will be the initial value (usually 0) - not parameter 
+    // returns single value / no array
+    // does not manupulate original array
+    // usually used for sums and products (numerical values)
 
-    /* code here */
+function totalHomeGoals(data) {
+const totalGoals = data.reduce(function(accumulator,item){
+return accumulator + item['Home Team Goals'];
+},0);
+return totalGoals;
+}
 
-};
+console.log (totalHomeGoals(fifaData))
 
-getAverageGoals();
+    function totalAwayGoals(data) {
+    const totalGoals = data.reduce(function(accumulator,item){
+    return accumulator + item['Away Team Goals'];
+    },0);
+    return totalGoals;
+    }
+console.log (totalAwayGoals(fifaData))
+  
+
+function getAverageGoals (num1,num2){
+    return (num1 + num2) / 851;
+}
+
+console.log (getAverageGoals(totalHomeGoals(fifaData),totalAwayGoals(fifaData)))
 
 
-
-
-
+console.log (" ^^^^this is task 7 ^^^^^")
 
 
 
